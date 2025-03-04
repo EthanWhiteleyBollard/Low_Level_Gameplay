@@ -1,0 +1,21 @@
+# ninja log v5
+3	123	7627922833424177	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	b801cf4f2e95007c
+3	123	7627922833424177	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-mkdir	b801cf4f2e95007c
+123	2676	7627922858955928	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	aa612c33f0969f7f
+123	2676	7627922858955928	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-download	aa612c33f0969f7f
+2676	2944	0	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	8f68bd52018ad814
+2676	2944	0	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-update	8f68bd52018ad814
+2946	3061	7627922862805697	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	c0600ff18733155e
+2946	3061	7627922862805697	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-patch	c0600ff18733155e
+3061	3173	7627922863923758	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	ec7d02adc3d7b937
+3061	3173	7627922863923758	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-configure	ec7d02adc3d7b937
+3173	3280	7627922864994930	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	69fc0e1100b37d39
+3173	3280	7627922864994930	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-build	69fc0e1100b37d39
+3280	3394	7627922866123217	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	9562acb2c0d4946e
+3280	3394	7627922866123217	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-install	9562acb2c0d4946e
+3394	3503	7627922867220902	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	97208443567f4c1c
+3394	3503	7627922867220902	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-test	97208443567f4c1c
+3503	3662	7627922868813219	CMakeFiles/ogg-populate-complete	3b0bf2ed50348ee6
+3503	3662	7627922868813219	ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	3b0bf2ed50348ee6
+3503	3662	7627922868813219	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/CMakeFiles/ogg-populate-complete	3b0bf2ed50348ee6
+3503	3662	7627922868813219	C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/ogg-subbuild/ogg-populate-prefix/src/ogg-populate-stamp/ogg-populate-done	3b0bf2ed50348ee6
