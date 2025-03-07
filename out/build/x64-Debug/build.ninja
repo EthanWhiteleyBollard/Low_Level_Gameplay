@@ -58,6 +58,15 @@ build CMakeFiles\lowlevel.dir\src\main.cpp.obj: CXX_COMPILER__lowlevel_unscanned
   TARGET_COMPILE_PDB = CMakeFiles\lowlevel.dir\
   TARGET_PDB = lowlevel.pdb
 
+build CMakeFiles\lowlevel.dir\src\Character\Player.cpp.obj: CXX_COMPILER__lowlevel_unscanned_Debug C$:\Users\w017289m\Documents\GitHub\Low_Level_Gameplay\src\Character\Player.cpp || cmake_object_order_depends_target_lowlevel
+  DEFINES = -DSFML_STATIC
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
+  INCLUDES = -IC:\Users\w017289m\Documents\GitHub\Low_Level_Gameplay\src -external:IC:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-src\include -external:W0
+  OBJECT_DIR = CMakeFiles\lowlevel.dir
+  OBJECT_FILE_DIR = CMakeFiles\lowlevel.dir\src\Character
+  TARGET_COMPILE_PDB = CMakeFiles\lowlevel.dir\
+  TARGET_PDB = lowlevel.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target lowlevel
@@ -66,7 +75,7 @@ build CMakeFiles\lowlevel.dir\src\main.cpp.obj: CXX_COMPILER__lowlevel_unscanned
 #############################################
 # Link the executable lowlevel.exe
 
-build lowlevel.exe: CXX_EXECUTABLE_LINKER__lowlevel_Debug CMakeFiles\lowlevel.dir\src\main.cpp.obj | C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-graphics-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-window-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-system-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\freetyped.lib || C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\freetyped.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-graphics-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-system-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-window-s-d.lib
+build lowlevel.exe: CXX_EXECUTABLE_LINKER__lowlevel_Debug CMakeFiles\lowlevel.dir\src\main.cpp.obj CMakeFiles\lowlevel.dir\src\Character\Player.cpp.obj | C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-graphics-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-window-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-system-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\freetyped.lib || C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\freetyped.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-graphics-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-system-s-d.lib C$:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-window-s-d.lib
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = C:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-graphics-s-d.lib  C:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-window-s-d.lib  C:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\sfml-system-s-d.lib  opengl32.lib  winmm.lib  gdi32.lib  C:\Users\w017289m\Documents\lowlevel\out\build\x64-Debug\_deps\sfml-build\lib\freetyped.lib  kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib

@@ -400,15 +400,15 @@
 		},
 		{
 			"backtrace" : 4,
-			"id" : "vorbisfile::@d8916a24228f320acb00"
-		},
-		{
-			"backtrace" : 4,
 			"id" : "vorbis::@d8916a24228f320acb00"
 		},
 		{
 			"backtrace" : 4,
 			"id" : "vorbisenc::@d8916a24228f320acb00"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "vorbisfile::@d8916a24228f320acb00"
 		}
 	],
 	"folder" : 

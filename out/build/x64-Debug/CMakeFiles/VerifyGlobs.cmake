@@ -5,6 +5,7 @@ cmake_policy(SET CMP0009 NEW)
 # MY_SOURCES at CMakeLists.txt:16 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "C:/Users/w017289m/Documents/GitHub/Low_Level_Gameplay/src/*.cpp")
 set(OLD_GLOB
+  "C:/Users/w017289m/Documents/GitHub/Low_Level_Gameplay/src/Character/Player.cpp"
   "C:/Users/w017289m/Documents/GitHub/Low_Level_Gameplay/src/main.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

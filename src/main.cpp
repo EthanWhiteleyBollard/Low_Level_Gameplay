@@ -6,8 +6,8 @@
 int main() 
 {
     sf::RenderWindow window(sf::VideoMode({ 400, 400 }), "SFML works!", sf::Style::Close);
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RectangleShape player({100.f, 100.f});
+    player.setFillColor(sf::Color::Red);
 
     while (window.isOpen())
     {
@@ -25,7 +25,7 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
+        window.draw(player);
         window.display();
     }
 	return 0;

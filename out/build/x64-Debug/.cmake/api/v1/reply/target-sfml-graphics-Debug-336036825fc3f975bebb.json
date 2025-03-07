@@ -338,11 +338,11 @@
 	[
 		{
 			"backtrace" : 4,
-			"id" : "sfml-window::@19f1f15a752565444f04"
+			"id" : "sfml-system::@bb4476a401881ed5d205"
 		},
 		{
 			"backtrace" : 4,
-			"id" : "sfml-system::@bb4476a401881ed5d205"
+			"id" : "sfml-window::@19f1f15a752565444f04"
 		},
 		{
 			"backtrace" : 5,
