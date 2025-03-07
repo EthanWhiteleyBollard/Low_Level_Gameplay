@@ -1,0 +1,89 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/freetype-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 631,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 639,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 644,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/sfml-build/lib/freetyped.lib"
+			],
+			"targetId" : "freetype::@3105867096ed6f2296d9",
+			"targetIndex" : 1,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "headers",
+			"destination" : "lib/cmake/freetype",
+			"exportName" : "freetype-targets",
+			"exportTargets" : 
+			[
+				{
+					"id" : "freetype::@3105867096ed6f2296d9",
+					"index" : 1
+				},
+				{
+					"id" : "freetype-interface::@3105867096ed6f2296d9",
+					"index" : 0
+				}
+			],
+			"paths" : 
+			[
+				"C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/freetype-build/CMakeFiles/Export/778b4f54a68e80ec034bf381f364ca2c/freetype-config.cmake"
+			],
+			"type" : "export"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "headers",
+			"destination" : "lib/cmake/freetype",
+			"paths" : 
+			[
+				"C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/freetype-build/freetype-config-version.cmake"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/freetype-build",
+		"source" : "C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/freetype-src"
+	}
+}

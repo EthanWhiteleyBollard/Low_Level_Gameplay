@@ -1,0 +1,45 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/flac-src/src/libFLAC/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 113,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/sfml-build/lib/FLACd.lib"
+			],
+			"targetId" : "FLAC::@f741d539290e26790313",
+			"targetIndex" : 0,
+			"type" : "target"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/flac-build/src/libFLAC",
+		"source" : "C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/flac-src/src/libFLAC"
+	}
+}

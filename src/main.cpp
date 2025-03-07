@@ -5,7 +5,7 @@
 
 int main() 
 {
-    sf::RenderWindow window(sf::VideoMode({ 400, 400 }), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode({ 400, 400 }), "SFML works!", sf::Style::Close);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 
@@ -17,6 +17,11 @@ int main()
         {
             if (event->is<sf::Event::Closed>())
                 window.close();
+            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) 
+            {
+                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
+                    window.close();
+            }
         }
 
         window.clear();

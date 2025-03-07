@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/sfml-build/src/SFML",
+		"source" : "C:/Users/w017289m/Documents/lowlevel/out/build/x64-Debug/_deps/sfml-src/src/SFML"
+	}
+}
