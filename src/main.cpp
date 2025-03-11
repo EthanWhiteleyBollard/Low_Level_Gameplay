@@ -5,7 +5,7 @@
 
 int main() 
 {
-    sf::RenderWindow window(sf::VideoMode({ 400, 400 }), "SFML works!", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode({ 1024, 768 }), "SFML works!", sf::Style::Close);
     sf::RectangleShape player({100.f, 100.f});
     player.setFillColor(sf::Color::Red);
 

@@ -11,7 +11,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(lowlevel src/main.cpp "src/main.h" "src/Character/Player.cpp")
+add_executable(lowlevel src/main.cpp "src/main.h" "src/Character/Player.cpp" "src/SpriteRender.h" "src/SpriteRender.cpp")
 
 file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 target_sources(lowlevel PRIVATE ${MY_SOURCES})
