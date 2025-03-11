@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(lowlevel)
+project(Low_Level_Gameplay)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -11,14 +11,14 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(lowlevel src/main.cpp "src/main.h" "src/Character/Player.cpp" "src/SpriteRender.h" "src/SpriteRender.cpp")
+add_executable(Low_Level_Gameplay "src/main.cpp")
 
 file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-target_sources(lowlevel PRIVATE ${MY_SOURCES})
-target_include_directories(lowlevel PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
-
-target_link_libraries(lowlevel PRIVATE SFML::Graphics)
+target_sources(Low_Level_Gameplay PRIVATE ${MY_SOURCES})
+target_include_directories(Low_Level_Gameplay PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src")
+file(COPY "src/Assets/" DESTINATION "Assets")
+target_link_libraries(Low_Level_Gameplay PRIVATE SFML::Graphics)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET lowlevel PROPERTY CXX_STANDARD 20)
+  set_property(TARGET Low_Level_Gameplay PROPERTY CXX_STANDARD 20)
 endif()
