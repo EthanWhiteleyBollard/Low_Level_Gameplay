@@ -1,32 +1,17 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "main.h"
+#include "Game.h"
 
 int main() 
 {
-    sf::RenderWindow window(sf::VideoMode({ 1024, 768 }), "SFML works!", sf::Style::Close);
-    sf::RectangleShape player({100.f, 100.f});
-    player.setFillColor(sf::Color::Red);
+    Game game;
 
-    while (window.isOpen())
+    while (game.getWindowIsOpen())
     {
-        // Event polling section of code - this must be done in the thread which created the window
-        // we will talk about threading later, but essentially this must be done here
-        while (const std::optional event = window.pollEvent())
-        {
-            if (event->is<sf::Event::Closed>())
-                window.close();
-            else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) 
-            {
-                if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-                    window.close();
-            }
-        }
-
-        window.clear();
-        window.draw(player);
-        window.display();
+        //Update
+        game.Update();
+        //Render
+        game.Render();
     }
 	return 0;
 }
