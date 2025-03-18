@@ -5,6 +5,7 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Network.hpp"
+#include "SpriteManager.h"
 
 class Game
 {
@@ -12,7 +13,13 @@ private:
 	//Variables
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
-	sf::Event ev;
+
+	//Image variables
+	sf::Image spriteSheet_Tilemap;
+	sf::Image spriteSheet_Backgrounds;
+	sf::Image spriteSheet_Characters;
+	sf::Texture texture_MainCharacter;
+	sf::Sprite* sprite_MainCharacter;
 
 	//Private Functions
 	void InitVariables();
