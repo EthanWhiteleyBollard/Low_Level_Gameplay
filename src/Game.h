@@ -5,7 +5,6 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Network.hpp"
-#include "SpriteManager.h"
 #include "Character/Player.h"
 
 class Game
@@ -21,9 +20,6 @@ private:
 	//Image variables
 	sf::Image spriteSheet_Tilemap;
 	sf::Image spriteSheet_Backgrounds;
-	sf::Image spriteSheet_Characters;
-	sf::Texture texture_MainCharacter;
-	sf::Sprite* sprite_MainCharacter;
 
 	//Private Functions
 	void InitVariables();

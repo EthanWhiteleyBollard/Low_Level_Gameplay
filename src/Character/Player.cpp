@@ -22,6 +22,7 @@ Player::~Player()
 void Player::initVariables()
 {
 	MovementSpeed = 10.f;
+	spriteSheet_Characters = sf::Image("Assets/tilemap-characters_packed.png");
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -41,28 +42,31 @@ void Player::Update(sf::RenderTarget* target)
 
 	//Keyboard Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A))
-	{
+	{ 
 		shape.move({-MovementSpeed, 0.f });
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D))
 	{
 		shape.move({ MovementSpeed, 0.f });
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W))
 	{
 		shape.move({ 0.f, -MovementSpeed });
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S))
 	{
 		shape.move({ 0.f, MovementSpeed });
 	}
+
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-void Player::Render(sf::RenderTarget* target)
+void Player::Render(sf::RenderTarget& target)
 {
-	target->draw(shape);
+	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
+	target.draw(shape);
+	sprite.render(target);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

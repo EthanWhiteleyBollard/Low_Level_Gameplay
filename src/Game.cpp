@@ -10,7 +10,6 @@ void Game::InitVariables()
 	//Image variables setup.
 	spriteSheet_Tilemap = sf::Image("Assets/tilemap_packed.png");
 	spriteSheet_Backgrounds = sf::Image("Assets/tilemap-backgrounds_packed.png");
-	spriteSheet_Characters = sf::Image("Assets/tilemap-characters_packed.png");
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -74,14 +73,8 @@ void Game::Update()
 
 void Game::Render()
 {
-	//SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
-
-	//sprite.fixedUpdate();
-
-
 	window->clear();
-	player.Render(window);
-	//sprite.render(*window);
+	player.Render(*window);
 	window->display();
 }
 

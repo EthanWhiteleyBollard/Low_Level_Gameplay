@@ -45,16 +45,17 @@ SpriteManager::~SpriteManager()
 //	return sf::Vector2f();
 //}
 //
-//sf::Vector2f SpriteManager::getPosition()
-//{
-//	return position;
-//}
-//
-//sf::Vector2f SpriteManager::setPosition(sf::Vector2f position)
-//{
-//	return sf::Vector2f();
-//}
-//
+sf::Vector2f SpriteManager::getPosition()
+{
+	return position;
+}
+
+sf::Vector2f SpriteManager::setPosition(sf::Vector2f position)
+{
+	this->position = position;
+	return position;
+}
+
 //sf::Vector2f SpriteManager::moveRelative(sf::Vector2f offset)
 //{
 //	return sf::Vector2f();
@@ -103,16 +104,16 @@ e_objectError SpriteManager::update()
 
 e_objectError SpriteManager::fixedUpdate()
 {
-	velocity = velocity + acceleration;
+	//velocity = velocity + acceleration;
 
-	position = position + velocity;
+	//position = position + velocity;
 
 	sprite->setPosition(position);
 
 	return errorState;
 }
 
-bool SpriteManager::render(sf::RenderWindow& window)
+bool SpriteManager::render(sf::RenderTarget& window)
 {
 	window.draw(*sprite);
 

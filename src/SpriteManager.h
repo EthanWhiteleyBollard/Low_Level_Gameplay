@@ -69,7 +69,7 @@ public:
 	e_objectError update();
 	e_objectError fixedUpdate();
 
-	bool render(sf::RenderWindow& window);
+	bool render(sf::RenderTarget& window);
 
 private:
 };
