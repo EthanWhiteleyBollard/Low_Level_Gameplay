@@ -5,6 +5,7 @@
 void Game::InitVariables()
 {
 	window = nullptr;
+	endGame = false;
 
 	//Image variables setup.
 	spriteSheet_Tilemap = sf::Image("Assets/tilemap_packed.png");
@@ -17,7 +18,8 @@ void Game::InitVariables()
 void Game::InitWindow()
 {
 	videoMode.size = { 800, 600 };
-	window = new sf::RenderWindow(videoMode, "SFML works!", sf::Style::Close);
+	window = new sf::RenderWindow(videoMode, "Robotron", sf::Style::Close);
+	window->setFramerateLimit(60);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -52,6 +54,10 @@ void Game::PollEvents()
 		{
 			if (event->is<sf::Event::Closed>())
 				window->close();
+			else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) 
+			{
+				if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) { window->close(); }
+			}
 		}
     }
 }
@@ -61,18 +67,21 @@ void Game::PollEvents()
 void Game::Update()
 {
     PollEvents();
+	player.Update(window);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
 
 void Game::Render()
 {
-	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
+	//SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
 
-	sprite.fixedUpdate();
+	//sprite.fixedUpdate();
+
 
 	window->clear();
-	sprite.render(*window);
+	player.Render(window);
+	//sprite.render(*window);
 	window->display();
 }
 

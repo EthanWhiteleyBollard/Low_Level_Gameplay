@@ -6,6 +6,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Network.hpp"
 #include "SpriteManager.h"
+#include "Character/Player.h"
 
 class Game
 {
@@ -13,6 +14,9 @@ private:
 	//Variables
 	sf::RenderWindow* window;
 	sf::VideoMode videoMode;
+	bool endGame;
+
+	Player player;
 
 	//Image variables
 	sf::Image spriteSheet_Tilemap;
