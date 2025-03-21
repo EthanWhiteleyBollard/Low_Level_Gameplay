@@ -66,7 +66,7 @@ void Player::Render(sf::RenderTarget& target)
 {
 	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
 	target.draw(shape);
-	sprite.render(target);
+	//sprite.render(target);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
