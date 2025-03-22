@@ -15,7 +15,7 @@ public:
 	virtual ~Player();
 	
 	//Functions
-	void Update(sf::RenderTarget* target);
+	void Update(const sf::RenderTarget* target);
 	void Render(sf::RenderTarget& target);
 
 private:
@@ -29,4 +29,7 @@ private:
 	void initVariables();
 	void initShape();
 
+	//Private Functions
+	void UpdateInputs();
+	void UpdateWindowBounds(const sf::RenderTarget* target);
 };
