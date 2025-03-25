@@ -6,6 +6,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Network.hpp"
 #include "Character/Player.h"
+#include "EnemyBase.h"
 
 class Game
 {
@@ -16,6 +17,8 @@ private:
 	bool endGame;
 
 	Player player;
+
+	EnemyBase enemy;
 
 	//Image variables
 	sf::Image spriteSheet_Tilemap;

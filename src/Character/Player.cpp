@@ -21,7 +21,7 @@ Player::~Player()
 //Initialization
 void Player::initVariables()
 {
-	MovementSpeed = 10.f;
+	MovementSpeed = 6.f;
 	spriteSheet_Characters = sf::Image("Assets/tilemap-characters_packed.png");
 }
 
@@ -30,7 +30,7 @@ void Player::initVariables()
 void Player::initShape()
 {
 	shape.setFillColor(sf::Color::Red);
-	shape.setSize(sf::Vector2f(100.f, 100.f));
+	shape.setSize(sf::Vector2f(35.f, 35.f));
 }
 
 
@@ -103,6 +103,13 @@ void Player::Render(sf::RenderTarget& target)
 	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
 	target.draw(shape);
 	//sprite.render(target);
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+sf::Vector2f Player::GetPostion()
+{
+	return shape.getPosition();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

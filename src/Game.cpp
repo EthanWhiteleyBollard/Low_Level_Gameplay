@@ -67,6 +67,7 @@ void Game::Update()
 {
     PollEvents();
 	player.Update(window);
+	enemy.Update(player);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -75,6 +76,7 @@ void Game::Render()
 {
 	window->clear();
 	player.Render(*window);
+	enemy.Render(window);
 	window->display();
 }
 

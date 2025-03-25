@@ -18,6 +18,8 @@ public:
 	void Update(const sf::RenderTarget* target);
 	void Render(sf::RenderTarget& target);
 
+	sf::Vector2f GetPostion();
+
 private:
 	//Variables
 	sf::RectangleShape shape;
