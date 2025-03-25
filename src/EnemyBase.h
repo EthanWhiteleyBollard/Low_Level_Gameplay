@@ -9,18 +9,21 @@
 class EnemyBase
 {
 public:
+	//Construct & Destruct
 	EnemyBase();
 	virtual ~EnemyBase();
+
+	//Public Functions
 	void Render(sf::RenderTarget* target);
 	void Update(Player player);
 
-	
-protected:
-
 private:
+
+	//Variables
 	sf::RectangleShape Shape;
 	float Movespeed;
 
+	//Initialization
 	void InitVariables();
 
 };

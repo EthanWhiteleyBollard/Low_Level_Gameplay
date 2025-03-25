@@ -1,5 +1,7 @@
 #include "EnemyBase.h"
 
+//--------------------------------------------------------------------------------------------------------------------------
+//Construct & Destruct
 EnemyBase::EnemyBase()
 {
 	Shape.setPosition({ 50.f,50.f });
@@ -7,11 +9,14 @@ EnemyBase::EnemyBase()
 	InitVariables();
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
+
 EnemyBase::~EnemyBase()
 {
 }
 
-
+//--------------------------------------------------------------------------------------------------------------------------
+//Initialization
 void EnemyBase::InitVariables()
 {
 	Shape.setFillColor(sf::Color::Yellow);
@@ -20,14 +25,21 @@ void EnemyBase::InitVariables()
 	Movespeed = 2.f;
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
+//Functions
 void EnemyBase::Update(Player player)
 {
+	//Chase Player
 	sf::Vector2f Direction = player.GetPostion() - Shape.getPosition();
 	Shape.move(Movespeed * Direction.normalized());
 
 }
 
+//--------------------------------------------------------------------------------------------------------------------------
+
 void EnemyBase::Render(sf::RenderTarget* target)
 {
 	target->draw(Shape);
 }
+
+//--------------------------------------------------------------------------------------------------------------------------
