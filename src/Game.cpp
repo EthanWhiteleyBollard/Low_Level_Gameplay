@@ -85,7 +85,7 @@ void Game::Render()
 
 void Game::UpdateCollisions()
 {
-	//Check Collison
+	//Check Enemy Collision
 	if (player.GetShape().getGlobalBounds().findIntersection(enemy.GetShape().getGlobalBounds())) 
 	{
 		std::cout << "Kill Player";
