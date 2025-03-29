@@ -107,6 +107,13 @@ void Player::Render(sf::RenderTarget& target)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+const sf::RectangleShape& Player::GetShape() const
+{
+	return shape;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
 sf::Vector2f Player::GetPostion()
 {
 	return shape.getPosition();

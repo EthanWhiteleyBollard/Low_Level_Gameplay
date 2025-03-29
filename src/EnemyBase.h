@@ -17,6 +17,8 @@ public:
 	void Render(sf::RenderTarget* target);
 	void Update(Player player);
 
+	const sf::RectangleShape& GetShape() const;
+
 private:
 
 	//Variables

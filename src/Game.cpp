@@ -68,6 +68,7 @@ void Game::Update()
     PollEvents();
 	player.Update(window);
 	enemy.Update(player);
+	UpdateCollisions();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -78,6 +79,17 @@ void Game::Render()
 	player.Render(*window);
 	enemy.Render(window);
 	window->display();
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+void Game::UpdateCollisions()
+{
+	//Check Collison
+	if (player.GetShape().getGlobalBounds().findIntersection(enemy.GetShape().getGlobalBounds())) 
+	{
+		std::cout << "Kill Player";
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

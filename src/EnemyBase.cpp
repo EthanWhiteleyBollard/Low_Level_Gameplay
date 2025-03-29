@@ -37,6 +37,13 @@ void EnemyBase::Update(Player player)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+const sf::RectangleShape& EnemyBase::GetShape() const
+{
+	return Shape;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
 void EnemyBase::Render(sf::RenderTarget* target)
 {
 	target->draw(Shape);

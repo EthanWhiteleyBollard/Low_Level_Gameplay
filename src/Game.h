@@ -7,6 +7,7 @@
 #include "SFML/Network.hpp"
 #include "Character/Player.h"
 #include "EnemyBase.h"
+#include "iostream"
 
 class Game
 {
@@ -39,4 +40,5 @@ public:
 	void PollEvents();
 	void Update();
 	void Render();
+	void UpdateCollisions();
 };
