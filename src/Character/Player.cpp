@@ -36,7 +36,6 @@ void Player::initShape()
 
 //--------------------------------------------------------------------------------------------------------------------------
 //Functions
-
 void Player::Update(const sf::RenderTarget* target)
 {
 	UpdateInputs();
@@ -47,22 +46,34 @@ void Player::Update(const sf::RenderTarget* target)
 
 void Player::UpdateInputs()
 {
+	sf::Vector2f movementVector = { 0,0 };
+
+	//Left Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A))
 	{
-		shape.move({ -MovementSpeed, 0.f });
+		movementVector += { -MovementSpeed, 0.f };
 	}
+
+	//Right Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D))
 	{
-		shape.move({ MovementSpeed, 0.f });
+		movementVector += { MovementSpeed, 0.f};
 	}
+
+	//Up Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W))
 	{
-		shape.move({ 0.f, -MovementSpeed });
+		movementVector += { 0.f, -MovementSpeed };
 	}
+
+	//Down Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S))
 	{
-		shape.move({ 0.f, MovementSpeed });
+		movementVector += { 0.f, MovementSpeed };
 	}
+
+	if(movementVector.x != 0.0f || movementVector.y != 0.0f)
+		shape.move(movementVector.normalized() * MovementSpeed);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
