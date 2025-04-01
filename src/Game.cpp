@@ -90,6 +90,11 @@ void Game::UpdateCollisions()
 	{
 		std::cout << "Kill Player";
 	}
+
+	if (enemy.GetShape().getGlobalBounds().findIntersection(player.GetProjectile().GetShape().getGlobalBounds())) 
+	{
+		std::cout << "Kill Enemy";
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

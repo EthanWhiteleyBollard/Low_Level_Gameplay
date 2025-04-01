@@ -38,13 +38,16 @@ void Player::initShape()
 //Functions
 void Player::Update(const sf::RenderTarget* target)
 {
-	UpdateInputs();
+	UpdateMovement();
+	Shooting();
 	UpdateWindowBounds(target);
+
+	projectile.Update();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-void Player::UpdateInputs()
+void Player::UpdateMovement()
 {
 	sf::Vector2f movementVector = { 0,0 };
 
@@ -78,6 +81,17 @@ void Player::UpdateInputs()
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+void Player::Shooting()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) 
+	{
+		//Shoot Up
+		std::cout << "Shoot Up";
+	}
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
 void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 {
 	//Left Check
@@ -105,6 +119,7 @@ void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 	if (shape.getGlobalBounds().position.x + shape.getGlobalBounds().size.x > target->getSize().x && shape.getGlobalBounds().position.y + shape.getGlobalBounds().size.y > target->getSize().y)
 		this->shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, target->getSize().y - shape.getGlobalBounds().size.y });
 
+	projectile.UpdateBounds(target);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -113,6 +128,7 @@ void Player::Render(sf::RenderTarget& target)
 {
 	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
 	target.draw(shape);
+	target.draw(projectile.GetShape());
 	//sprite.render(target);
 }
 

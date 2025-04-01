@@ -1,11 +1,12 @@
 #pragma once
-
+#include "iostream"
 #include "SFML/System.hpp"
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
 #include "SpriteManager.h"
+#include "Projectiles/PlayerProjectile.h"
 
 class Player
 {
@@ -22,6 +23,8 @@ public:
 
 	sf::Vector2f GetPostion();
 
+	PlayerProjectile GetProjectile() { return projectile; }
+
 private:
 	//Variables
 	sf::RectangleShape shape;
@@ -29,11 +32,14 @@ private:
 	float MovementSpeed;
 	sf::Image spriteSheet_Characters;
 
+	PlayerProjectile projectile;
+
 	//Initialization
 	void initVariables();
 	void initShape();
 
 	//Private Functions
-	void UpdateInputs();
+	void UpdateMovement();
+	void Shooting();
 	void UpdateWindowBounds(const sf::RenderTarget* target);
 };

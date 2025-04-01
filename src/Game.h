@@ -6,7 +6,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/Network.hpp"
 #include "Character/Player.h"
-#include "EnemyBase.h"
+#include "Enemies/EnemyBase.h"
 #include "iostream"
 
 class Game
