@@ -10,11 +10,11 @@ class EnemyBase
 {
 public:
 	//Construct & Destruct
-	EnemyBase();
+	EnemyBase(sf::RenderTarget& target);
 	virtual ~EnemyBase();
 
 	//Public Functions
-	void Render(sf::RenderTarget* target);
+	void Render(sf::RenderTarget& target);
 	void Update(Player player);
 
 	const sf::RectangleShape& GetShape() const;
@@ -26,6 +26,6 @@ private:
 	float Movespeed;
 
 	//Initialization
-	void InitVariables();
+	void InitVariables(sf::RenderTarget& target);
 
 };

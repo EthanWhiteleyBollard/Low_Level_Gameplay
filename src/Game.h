@@ -19,7 +19,8 @@ private:
 
 	Player player;
 
-	EnemyBase enemy;
+	std::vector<EnemyBase> enemies;
+	int maxEnemies;
 
 	//Image variables
 	sf::Image spriteSheet_Tilemap;
@@ -41,4 +42,6 @@ public:
 	void Update();
 	void Render();
 	void UpdateCollisions();
+
+	void SpawnEnemies();
 };

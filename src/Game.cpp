@@ -10,6 +10,9 @@ void Game::InitVariables()
 	//Image variables setup.
 	spriteSheet_Tilemap = sf::Image("Assets/tilemap_packed.png");
 	spriteSheet_Backgrounds = sf::Image("Assets/tilemap-backgrounds_packed.png");
+
+	//Enemies
+	maxEnemies = 10;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -66,9 +69,9 @@ void Game::PollEvents()
 void Game::Update()
 {
     PollEvents();
+	SpawnEnemies();
 	player.Update(window);
-	enemy.Update(player);
-	UpdateCollisions();
+	//UpdateCollisions();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -77,7 +80,10 @@ void Game::Render()
 {
 	window->clear();
 	player.Render(*window);
-	enemy.Render(window);
+	for (auto i : enemies) 
+	{
+		i.Render(*window);
+	}
 	window->display();
 }
 
@@ -85,16 +91,24 @@ void Game::Render()
 
 void Game::UpdateCollisions()
 {
-	//Check Enemy Collision
-	if (player.GetShape().getGlobalBounds().findIntersection(enemy.GetShape().getGlobalBounds())) 
-	{
-		std::cout << "Kill Player";
-	}
+	////Check Enemy Collision
+	//if (player.GetShape().getGlobalBounds().findIntersection(enemy.GetShape().getGlobalBounds())) 
+	//{
+	//	std::cout << "Kill Player";
+	//}
 
-	if (enemy.GetShape().getGlobalBounds().findIntersection(player.GetProjectile().GetShape().getGlobalBounds())) 
-	{
-		std::cout << "Kill Enemy";
-	}
+	//if (enemy.GetShape().getGlobalBounds().findIntersection(player.GetProjectile().GetShape().getGlobalBounds())) 
+	//{
+	//	std::cout << "Kill Enemy";
+	//}
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+void Game::SpawnEnemies()
+{
+	if (enemies.size() < maxEnemies)
+		enemies.push_back(EnemyBase(*window));
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
