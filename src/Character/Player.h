@@ -12,7 +12,7 @@ class Player
 {
 public:
 	//Construct & Destruct
-	Player(float x = 0.f, float y = 0.f);
+	Player(float x = 120.f, float y = 120.f);
 	virtual ~Player();
 	
 	//Functions

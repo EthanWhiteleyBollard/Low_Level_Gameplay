@@ -42,7 +42,7 @@ void Player::Update(const sf::RenderTarget* target)
 	Shooting();
 	UpdateWindowBounds(target);
 
-	projectile.Update();
+	//projectile.Update();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -83,11 +83,23 @@ void Player::UpdateMovement()
 
 void Player::Shooting()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) 
-	{
-		//Shoot Up
-		std::cout << "Shoot Up";
-	}
+	//Directional Shooting
+	//Up
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpRight"; }
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpLeft"; }
+	//Down
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownRight"; }
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownLeft"; }
+
+	//Normal Shooting
+	//Up
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)){ std::cout << "Shoot Up"; }
+	//Down
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot Down"; }
+	//Right
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)) { std::cout << "Shoot Right"; }
+	//Left
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left)) { std::cout << "Shoot Left"; }
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -128,7 +140,7 @@ void Player::Render(sf::RenderTarget& target)
 {
 	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
 	target.draw(shape);
-	target.draw(projectile.GetShape());
+	//target.draw(projectile.GetShape());
 	//sprite.render(target);
 }
 

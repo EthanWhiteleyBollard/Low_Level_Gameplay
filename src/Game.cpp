@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "vector"
 
 //--------------------------------------------------------------------------------------------------------------------------
 //Private Functions
@@ -12,7 +13,7 @@ void Game::InitVariables()
 	spriteSheet_Backgrounds = sf::Image("Assets/tilemap-backgrounds_packed.png");
 
 	//Enemies
-	maxEnemies = 10;
+	maxEnemies = 5;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Game::Game()
 {
 	InitVariables();
 	InitWindow();
+	SpawnEnemies();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -69,9 +71,13 @@ void Game::PollEvents()
 void Game::Update()
 {
     PollEvents();
-	SpawnEnemies();
 	player.Update(window);
-	//UpdateCollisions();
+	//Chase Player
+	for (EnemyBase& enemy : enemies)
+	{
+		enemy.Update(player);
+	}
+	UpdateCollisions();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -91,11 +97,14 @@ void Game::Render()
 
 void Game::UpdateCollisions()
 {
-	////Check Enemy Collision
-	//if (player.GetShape().getGlobalBounds().findIntersection(enemy.GetShape().getGlobalBounds())) 
-	//{
-	//	std::cout << "Kill Player";
-	//}
+	for (EnemyBase enemy : enemies) 
+	{
+		//Check Enemy Collision
+		if (player.GetShape().getGlobalBounds().findIntersection(enemy.GetShape().getGlobalBounds())) 
+		{
+			std::cout << "Kill Player";
+		}
+	}
 
 	//if (enemy.GetShape().getGlobalBounds().findIntersection(player.GetProjectile().GetShape().getGlobalBounds())) 
 	//{
@@ -107,7 +116,7 @@ void Game::UpdateCollisions()
 
 void Game::SpawnEnemies()
 {
-	if (enemies.size() < maxEnemies)
+	while (enemies.size() < maxEnemies)
 		enemies.push_back(EnemyBase(*window));
 }
 

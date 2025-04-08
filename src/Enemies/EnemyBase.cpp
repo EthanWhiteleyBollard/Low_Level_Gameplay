@@ -4,8 +4,6 @@
 //Construct & Destruct
 EnemyBase::EnemyBase(sf::RenderTarget& target)
 {
-	Shape.setPosition({ 50.f,50.f });
-
 	InitVariables(target);
 }
 
@@ -23,8 +21,6 @@ void EnemyBase::InitVariables(sf::RenderTarget& target)
 	Shape.setSize(sf::Vector2f(45.f, 45.f));
 
 	//Randomize Spawn
-	//Shape.setPosition(sf::Vector2f(static_cast<float>(rand() % target.getSize().x - Shape.getGlobalBounds().size.x), static_cast<float>(rand() % target.getSize().y - Shape.getGlobalBounds().size.y)));
-
 	float shapePosX = static_cast<float>(rand() % target.getSize().x - Shape.getGlobalBounds().size.x);
 	float shapePosY = static_cast<float>(rand() % target.getSize().y - Shape.getGlobalBounds().size.y);
 	
@@ -34,7 +30,8 @@ void EnemyBase::InitVariables(sf::RenderTarget& target)
 	if (shapePosY < 0.f)
 		shapePosY = 0.f;
 
-	Shape.setPosition(sf::Vector2f(shapePosX, shapePosY));
+	//position = sf::Vector2f(shapePosX, shapePosY);
+	Shape.setPosition(position);
 
 	Movespeed = 2.f;
 }
@@ -45,8 +42,9 @@ void EnemyBase::Update(Player player)
 {
 	//Chase Player
 	sf::Vector2f Direction = player.GetPostion() - Shape.getPosition();
+	//position += Movespeed * Direction.normalized();
+	//Shape.setPosition(position);
 	Shape.move(Movespeed * Direction.normalized());
-
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

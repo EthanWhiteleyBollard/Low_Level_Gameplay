@@ -24,6 +24,7 @@ private:
 	//Variables
 	sf::RectangleShape Shape;
 	float Movespeed;
+	sf::Vector2f position;
 
 	//Initialization
 	void InitVariables(sf::RenderTarget& target);
