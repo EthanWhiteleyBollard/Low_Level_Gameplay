@@ -86,39 +86,32 @@ void Player::UpdateMovement()
 
 void Player::Shooting()
 {
-	////Directional Shooting
-	////Up
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpRight"; }
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpLeft"; }
-	////Down
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownRight"; }
-	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownLeft"; }
+	sf::Vector2f movementVector = { 0,0 };
 
-	//Normal Shooting
 	//Up
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 	{
-		std::cout << "Shoot Up"; 
-		SpawnBullet(sf::Vector2f{ 0,-1 });
+		movementVector += { 0.f, -1 };
 	}
 	//Down
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) 
 	{ 
-		std::cout << "Shoot Down"; 
-		SpawnBullet(sf::Vector2f{ 0,1 });
+		movementVector += { 0.f, 1 };
 	}
 	//Right
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)) 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)) 
 	{
-		std::cout << "Shoot Right";
-		SpawnBullet(sf::Vector2f{ 1,0 });
+		movementVector += { 1, 0 };
+
 	}
 	//Left
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left)) 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left)) 
 	{ 
-		std::cout << "Shoot Left";
-		SpawnBullet(sf::Vector2f{ -1,0 });
+		movementVector += { -1, 0 };
 	}
+
+	if (movementVector.x != 0.0f || movementVector.y != 0.0f)
+		SpawnBullet(movementVector.normalized());
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
