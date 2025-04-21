@@ -42,7 +42,10 @@ void Player::Update(const sf::RenderTarget* target)
 	Shooting();
 	UpdateWindowBounds(target);
 
-	//projectile.Update();
+	for (Bullet& bullet : Bullets) 
+	{
+		bullet.Update();
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -83,23 +86,46 @@ void Player::UpdateMovement()
 
 void Player::Shooting()
 {
-	//Directional Shooting
-	//Up
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpRight"; }
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpLeft"; }
-	//Down
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownRight"; }
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownLeft"; }
+	////Directional Shooting
+	////Up
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpRight"; }
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)) { std::cout << "Shoot UpLeft"; }
+	////Down
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownRight"; }
+	//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot DownLeft"; }
 
 	//Normal Shooting
 	//Up
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up)){ std::cout << "Shoot Up"; }
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
+	{
+		std::cout << "Shoot Up"; 
+		SpawnBullet(sf::Vector2f{ 0,-1 });
+	}
 	//Down
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) { std::cout << "Shoot Down"; }
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) 
+	{ 
+		std::cout << "Shoot Down"; 
+		SpawnBullet(sf::Vector2f{ 0,1 });
+	}
 	//Right
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)) { std::cout << "Shoot Right"; }
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)) 
+	{
+		std::cout << "Shoot Right";
+		SpawnBullet(sf::Vector2f{ 1,0 });
+	}
 	//Left
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left)) { std::cout << "Shoot Left"; }
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left)) 
+	{ 
+		std::cout << "Shoot Left";
+		SpawnBullet(sf::Vector2f{ -1,0 });
+	}
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+void Player::SpawnBullet(sf::Vector2f direction)
+{
+	Bullets.push_back(Bullet(direction.x, direction.y, 10, shape.getPosition()));
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -130,8 +156,6 @@ void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 	//Right Down Check
 	if (shape.getGlobalBounds().position.x + shape.getGlobalBounds().size.x > target->getSize().x && shape.getGlobalBounds().position.y + shape.getGlobalBounds().size.y > target->getSize().y)
 		this->shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, target->getSize().y - shape.getGlobalBounds().size.y });
-
-	projectile.UpdateBounds(target);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -140,8 +164,10 @@ void Player::Render(sf::RenderTarget& target)
 {
 	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
 	target.draw(shape);
-	//target.draw(projectile.GetShape());
 	//sprite.render(target);
+	for (auto i : Bullets) {
+		i.Render(target);
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

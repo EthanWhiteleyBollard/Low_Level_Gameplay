@@ -6,7 +6,7 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
 #include "SpriteManager.h"
-#include "Projectiles/PlayerProjectile.h"
+#include "Projectiles/Bullet.h"
 
 class Player
 {
@@ -14,7 +14,7 @@ public:
 	//Construct & Destruct
 	Player(float x = 120.f, float y = 120.f);
 	virtual ~Player();
-	
+
 	//Functions
 	void Update(const sf::RenderTarget* target);
 	void Render(sf::RenderTarget& target);
@@ -23,8 +23,6 @@ public:
 
 	sf::Vector2f GetPostion();
 
-	PlayerProjectile GetProjectile() { return projectile; }
-
 private:
 	//Variables
 	sf::RectangleShape shape;
@@ -32,7 +30,7 @@ private:
 	float MovementSpeed;
 	sf::Image spriteSheet_Characters;
 
-	PlayerProjectile projectile;
+	std::vector<Bullet> Bullets;
 
 	//Initialization
 	void initVariables();
@@ -42,4 +40,5 @@ private:
 	void UpdateMovement();
 	void Shooting();
 	void UpdateWindowBounds(const sf::RenderTarget* target);
+	void SpawnBullet(sf::Vector2f direction);
 };
