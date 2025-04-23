@@ -31,6 +31,7 @@ void Player::initShape()
 {
 	shape.setFillColor(sf::Color::Red);
 	shape.setSize(sf::Vector2f(35.f, 35.f));
+	shape.setOrigin({shape.getLocalBounds().size.x / 2.0f, shape.getLocalBounds().size.y / 2.0f});
 }
 
 
@@ -87,38 +88,42 @@ void Player::UpdateMovement()
 void Player::Shooting()
 {
 	sf::Vector2f movementVector = { 0,0 };
+	sf::Vector2f spawnPoint = { 0,0 };
 
 	//Up
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 	{
 		movementVector += { 0.f, -1 };
+		spawnPoint += { 0, -shape.getGlobalBounds().position.y };
 	}
 	//Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) 
 	{ 
 		movementVector += { 0.f, 1 };
+		spawnPoint += { 0, shape.getLocalBounds().position.y };
 	}
 	//Right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)) 
 	{
 		movementVector += { 1, 0 };
-
+		spawnPoint += { shape.getGlobalBounds().position.x, 0 };
 	}
 	//Left
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left)) 
 	{ 
 		movementVector += { -1, 0 };
+		spawnPoint += { -shape.getGlobalBounds().position.x, 0 };
 	}
 
 	if (movementVector.x != 0.0f || movementVector.y != 0.0f)
-		SpawnBullet(movementVector.normalized());
+		SpawnBullet(movementVector.normalized(), spawnPoint);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-void Player::SpawnBullet(sf::Vector2f direction)
+void Player::SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint)
 {
-	Bullets.push_back(Bullet(direction.x, direction.y, 10, shape.getPosition()));
+	Bullets.push_back(Bullet(direction.x, direction.y, 10, spawnPoint));
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

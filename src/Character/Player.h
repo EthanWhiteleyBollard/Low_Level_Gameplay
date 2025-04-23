@@ -40,5 +40,5 @@ private:
 	void UpdateMovement();
 	void Shooting();
 	void UpdateWindowBounds(const sf::RenderTarget* target);
-	void SpawnBullet(sf::Vector2f direction);
+	void SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint);
 };
