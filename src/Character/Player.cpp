@@ -23,6 +23,9 @@ void Player::initVariables()
 {
 	MovementSpeed = 6.f;
 	spriteSheet_Characters = sf::Image("Assets/tilemap-characters_packed.png");
+	shotTime = 10.f;
+	canShoot = true;
+	clock.restart();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -31,7 +34,7 @@ void Player::initShape()
 {
 	shape.setFillColor(sf::Color::Red);
 	shape.setSize(sf::Vector2f(35.f, 35.f));
-	shape.setOrigin({shape.getLocalBounds().size.x / 2.0f, shape.getLocalBounds().size.y / 2.0f});
+	//shape.setOrigin({shape.getLocalBounds().size.x / 2.0f, shape.getLocalBounds().size.y / 2.0f});
 }
 
 
@@ -42,6 +45,8 @@ void Player::Update(const sf::RenderTarget* target)
 	UpdateMovement();
 	Shooting();
 	UpdateWindowBounds(target);
+
+	//std::cout << std::boolalpha << clock.isRunning() << std::endl;
 
 	for (Bullet& bullet : Bullets) 
 	{
@@ -87,36 +92,36 @@ void Player::UpdateMovement()
 
 void Player::Shooting()
 {
+	if (!canShoot) { return; }
+	
 	sf::Vector2f movementVector = { 0,0 };
-	sf::Vector2f spawnPoint = { 0,0 };
 
 	//Up
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Up))
 	{
 		movementVector += { 0.f, -1 };
-		spawnPoint += { 0, -shape.getGlobalBounds().position.y };
 	}
 	//Down
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Down)) 
 	{ 
 		movementVector += { 0.f, 1 };
-		spawnPoint += { 0, shape.getLocalBounds().position.y };
 	}
 	//Right
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Right)) 
 	{
 		movementVector += { 1, 0 };
-		spawnPoint += { shape.getGlobalBounds().position.x, 0 };
 	}
 	//Left
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Left)) 
 	{ 
 		movementVector += { -1, 0 };
-		spawnPoint += { -shape.getGlobalBounds().position.x, 0 };
 	}
 
 	if (movementVector.x != 0.0f || movementVector.y != 0.0f)
-		SpawnBullet(movementVector.normalized(), spawnPoint);
+		SpawnBullet(movementVector.normalized(), shape.getPosition());
+
+	clock.restart();
+	ShotTimer();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -128,20 +133,36 @@ void Player::SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+void Player::ShotTimer()
+{
+	if (clock.getElapsedTime().asSeconds() >= shotTime)
+	{
+		canShoot = true;
+		clock.stop();
+	}
+	else
+	{
+		std::cout << clock.getElapsedTime().asSeconds() << std::endl;
+		canShoot = false;
+	}
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
 void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 {
 	//Left Check
 	if (shape.getGlobalBounds().position.x < 0.f)
-		shape.setPosition({ 0.f, shape.getGlobalBounds().position.y });
+		this->shape.setPosition({ 0, shape.getGlobalBounds().position.y});
 	//Right Check
 	if (shape.getGlobalBounds().position.x + shape.getGlobalBounds().size.x > target->getSize().x)
-		shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, shape.getGlobalBounds().position.y });
+		this->shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, shape.getGlobalBounds().position.y });
 	//Top Check
 	if (shape.getGlobalBounds().position.y < 0.f)
-		shape.setPosition({ shape.getGlobalBounds().position.x, 0.f });
+		this->shape.setPosition({ shape.getGlobalBounds().position.x, 0.f });
 	//Bottom Check
 	if (shape.getGlobalBounds().position.y + shape.getGlobalBounds().size.y > target->getSize().y)
-		shape.setPosition({ shape.getGlobalBounds().position.x, target->getSize().y - shape.getGlobalBounds().size.y });
+		this->shape.setPosition({ shape.getGlobalBounds().position.x, target->getSize().y - shape.getGlobalBounds().size.y });
 	//Left Top Check
 	if (shape.getGlobalBounds().position.x < 0.f && shape.getGlobalBounds().position.y < 0.f)
 		this->shape.setPosition({ 0.f, 0.f });

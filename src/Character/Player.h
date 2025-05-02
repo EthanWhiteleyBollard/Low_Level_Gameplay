@@ -30,7 +30,11 @@ private:
 	float MovementSpeed;
 	sf::Image spriteSheet_Characters;
 
+	//Shooting
 	std::vector<Bullet> Bullets;
+	bool canShoot = true;
+	float shotTime;
+	sf::Clock clock;
 
 	//Initialization
 	void initVariables();
@@ -41,4 +45,5 @@ private:
 	void Shooting();
 	void UpdateWindowBounds(const sf::RenderTarget* target);
 	void SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint);
+	void ShotTimer();
 };
