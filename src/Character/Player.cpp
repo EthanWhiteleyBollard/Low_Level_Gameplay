@@ -23,9 +23,8 @@ void Player::initVariables()
 {
 	MovementSpeed = 6.f;
 	spriteSheet_Characters = sf::Image("Assets/tilemap-characters_packed.png");
-	shotTime = 10.f;
-	canShoot = true;
-	clock.restart();
+	attackCooldownMax = 8.f;
+	attackCooldown = attackCooldownMax;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -43,7 +42,11 @@ void Player::initShape()
 void Player::Update(const sf::RenderTarget* target)
 {
 	UpdateMovement();
+
+	if (attackCooldown < attackCooldownMax) { attackCooldown += .5f; }
+
 	Shooting();
+
 	UpdateWindowBounds(target);
 
 	//std::cout << std::boolalpha << clock.isRunning() << std::endl;
@@ -52,6 +55,7 @@ void Player::Update(const sf::RenderTarget* target)
 	{
 		bullet.Update();
 	}
+
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -91,9 +95,9 @@ void Player::UpdateMovement()
 //--------------------------------------------------------------------------------------------------------------------------
 
 void Player::Shooting()
-{
-	if (!canShoot) { return; }
-	
+{	
+	if (!canAttack()) { return; }
+
 	sf::Vector2f movementVector = { 0,0 };
 
 	//Up
@@ -120,8 +124,6 @@ void Player::Shooting()
 	if (movementVector.x != 0.0f || movementVector.y != 0.0f)
 		SpawnBullet(movementVector.normalized(), shape.getPosition());
 
-	clock.restart();
-	ShotTimer();
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -129,22 +131,6 @@ void Player::Shooting()
 void Player::SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint)
 {
 	Bullets.push_back(Bullet(direction.x, direction.y, 10, spawnPoint));
-}
-
-//--------------------------------------------------------------------------------------------------------------------------
-
-void Player::ShotTimer()
-{
-	if (clock.getElapsedTime().asSeconds() >= shotTime)
-	{
-		canShoot = true;
-		clock.stop();
-	}
-	else
-	{
-		std::cout << clock.getElapsedTime().asSeconds() << std::endl;
-		canShoot = false;
-	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -187,6 +173,18 @@ void Player::Render(sf::RenderTarget& target)
 	for (auto i : Bullets) {
 		i.Render(target);
 	}
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+const bool Player::canAttack()
+{
+	if (attackCooldown >= attackCooldownMax) 
+	{
+		attackCooldown = 0.f;
+		return true; 
+	}
+	return false;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

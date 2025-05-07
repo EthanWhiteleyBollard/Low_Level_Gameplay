@@ -19,6 +19,8 @@ public:
 	void Update(const sf::RenderTarget* target);
 	void Render(sf::RenderTarget& target);
 
+	const bool canAttack();
+
 	const sf::RectangleShape& GetShape() const;
 
 	sf::Vector2f GetPostion();
@@ -32,9 +34,8 @@ private:
 
 	//Shooting
 	std::vector<Bullet> Bullets;
-	bool canShoot = true;
-	float shotTime;
-	sf::Clock clock;
+	float attackCooldown;
+	float attackCooldownMax;
 
 	//Initialization
 	void initVariables();
@@ -45,5 +46,4 @@ private:
 	void Shooting();
 	void UpdateWindowBounds(const sf::RenderTarget* target);
 	void SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint);
-	void ShotTimer();
 };
