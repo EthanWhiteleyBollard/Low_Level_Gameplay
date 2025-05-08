@@ -33,7 +33,7 @@ private:
 	sf::Image spriteSheet_Characters;
 
 	//Shooting
-	std::vector<Bullet> Bullets;
+	std::vector<Bullet*> Bullets;
 	float attackCooldown;
 	float attackCooldownMax;
 

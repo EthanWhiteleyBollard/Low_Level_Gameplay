@@ -19,4 +19,6 @@ public:
 
 	void Update();
 	void Render(sf::RenderTarget& target);
+
+	const sf::FloatRect getBounds() const;
 };

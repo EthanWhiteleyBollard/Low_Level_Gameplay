@@ -51,9 +51,9 @@ void Player::Update(const sf::RenderTarget* target)
 
 	//std::cout << std::boolalpha << clock.isRunning() << std::endl;
 
-	for (Bullet& bullet : Bullets) 
+	for (auto *bullet : Bullets) 
 	{
-		bullet.Update();
+		bullet->Update();
 	}
 
 }
@@ -130,7 +130,7 @@ void Player::Shooting()
 
 void Player::SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint)
 {
-	Bullets.push_back(Bullet(direction.x, direction.y, 10, spawnPoint));
+	Bullets.push_back(new Bullet(direction.x, direction.y, 10, spawnPoint));
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -161,6 +161,21 @@ void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 	//Right Down Check
 	if (shape.getGlobalBounds().position.x + shape.getGlobalBounds().size.x > target->getSize().x && shape.getGlobalBounds().position.y + shape.getGlobalBounds().size.y > target->getSize().y)
 		this->shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, target->getSize().y - shape.getGlobalBounds().size.y });
+
+	//Bullets
+	unsigned counter = 0;
+	for (auto *bullet : Bullets)
+	{
+		if (bullet->getBounds().position.y + bullet->getBounds().size.y < 0.f || bullet->getBounds().position.y + bullet->getBounds().size.y > target->getSize().y || bullet->getBounds().position.x + bullet->getBounds().size.x > target->getSize().x || bullet->getBounds().position.x < 0.f) 
+		{
+			delete bullet;
+			Bullets.erase(Bullets.begin() + counter);
+			std::cout << "Delete Bullet" << std::endl;
+			--counter;
+		}
+
+		++counter;
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -170,8 +185,8 @@ void Player::Render(sf::RenderTarget& target)
 	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
 	target.draw(shape);
 	//sprite.render(target);
-	for (auto i : Bullets) {
-		i.Render(target);
+	for (auto *i : Bullets) {
+		i->Render(target);
 	}
 }
 
