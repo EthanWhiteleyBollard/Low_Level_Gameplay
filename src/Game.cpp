@@ -13,7 +13,7 @@ void Game::InitVariables()
 	spriteSheet_Backgrounds = sf::Image("Assets/tilemap-backgrounds_packed.png");
 
 	//Enemies
-	maxEnemies = 5;
+	maxEnemies = 3;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -73,11 +73,17 @@ void Game::Update()
     PollEvents();
 	player.Update(window);
 	//Chase Player
-	for (EnemyBase& enemy : enemies)
+	for (int i = 0; i < enemies.size(); i++)
 	{
-		enemy.Update(player);
+		enemies[i]->Update(player);
 	}
 	UpdateCollisions();
+
+	if (enemies.size() <= 0) 
+	{
+		maxEnemies++;
+		SpawnEnemies();
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -88,7 +94,7 @@ void Game::Render()
 	player.Render(*window);
 	for (auto i : enemies) 
 	{
-		i.Render(*window);
+		i->Render(*window);
 	}
 	window->display();
 }
@@ -97,19 +103,24 @@ void Game::Render()
 
 void Game::UpdateCollisions()
 {
-	for (EnemyBase enemy : enemies) 
+	for (int e = 0; e < enemies.size(); e++) 
 	{
 		//Check Enemy Collision
-		if (player.GetShape().getGlobalBounds().findIntersection(enemy.GetShape().getGlobalBounds())) 
+		if (player.GetShape().getGlobalBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
 		{
 			std::cout << "Kill Player";
 		}
-	}
 
-	//if (enemy.GetShape().getGlobalBounds().findIntersection(player.GetProjectile().GetShape().getGlobalBounds())) 
-	//{
-	//	std::cout << "Kill Enemy";
-	//}
+		//Kill Player
+		for (size_t i = 0; i < player.GetBullets().size(); i++)
+		{
+			if (player.GetSetBullet(i)->getBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
+			{
+				player.DeleteBullet(i);
+				enemies.erase(enemies.begin() + e);
+			}
+		}
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -117,7 +128,9 @@ void Game::UpdateCollisions()
 void Game::SpawnEnemies()
 {
 	while (enemies.size() < maxEnemies)
-		enemies.push_back(EnemyBase(*window));
+	{
+		enemies.push_back(new EnemyBase(*window));
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

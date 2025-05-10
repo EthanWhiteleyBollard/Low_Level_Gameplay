@@ -30,7 +30,7 @@ void EnemyBase::InitVariables(sf::RenderTarget& target)
 	if (shapePosY < 0.f)
 		shapePosY = 0.f;
 
-	//position = sf::Vector2f(shapePosX, shapePosY);
+	position = sf::Vector2f(shapePosX, shapePosY);
 	Shape.setPosition(position);
 
 	Movespeed = 2.f;

@@ -18,10 +18,13 @@ public:
 	//Functions
 	void Update(const sf::RenderTarget* target);
 	void Render(sf::RenderTarget& target);
+	void DeleteBullet(int i);
 
 	const bool canAttack();
 
 	const sf::RectangleShape& GetShape() const;
+	std::vector<Bullet*>& GetBullets();
+	Bullet* GetSetBullet(int i);
 
 	sf::Vector2f GetPostion();
 

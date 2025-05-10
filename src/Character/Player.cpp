@@ -43,7 +43,7 @@ void Player::Update(const sf::RenderTarget* target)
 {
 	UpdateMovement();
 
-	if (attackCooldown < attackCooldownMax) { attackCooldown += .5f; }
+	if (attackCooldown < attackCooldownMax) { attackCooldown += .4f; }
 
 	Shooting();
 
@@ -169,8 +169,7 @@ void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 		if (bullet->getBounds().position.y + bullet->getBounds().size.y < 0.f || bullet->getBounds().position.y + bullet->getBounds().size.y > target->getSize().y || bullet->getBounds().position.x + bullet->getBounds().size.x > target->getSize().x || bullet->getBounds().position.x < 0.f) 
 		{
 			delete bullet;
-			Bullets.erase(Bullets.begin() + counter);
-			std::cout << "Delete Bullet" << std::endl;
+			DeleteBullet(counter);
 			--counter;
 		}
 
@@ -192,6 +191,14 @@ void Player::Render(sf::RenderTarget& target)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+void Player::DeleteBullet(int i)
+{
+	Bullets.erase(Bullets.begin() + i);
+	std::cout << "Delete Bullet" << std::endl;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
 const bool Player::canAttack()
 {
 	if (attackCooldown >= attackCooldownMax) 
@@ -203,10 +210,25 @@ const bool Player::canAttack()
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
+//Getter Functions
 
 const sf::RectangleShape& Player::GetShape() const
 {
 	return shape;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+std::vector<Bullet*>& Player::GetBullets()
+{
+	return Bullets;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+Bullet* Player::GetSetBullet(int i)
+{
+	return Bullets[i];
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

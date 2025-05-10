@@ -19,7 +19,7 @@ private:
 
 	Player player;
 
-	std::vector<EnemyBase> enemies;
+	std::vector<EnemyBase*> enemies;
 	int maxEnemies;
 
 	//Image variables
