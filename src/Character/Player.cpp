@@ -194,7 +194,6 @@ void Player::Render(sf::RenderTarget& target)
 void Player::DeleteBullet(int i)
 {
 	Bullets.erase(Bullets.begin() + i);
-	std::cout << "Delete Bullet" << std::endl;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
