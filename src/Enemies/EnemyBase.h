@@ -15,7 +15,7 @@ public:
 
 	//Public Functions
 	void Render(sf::RenderTarget& target);
-	void Update(Player player);
+	void Update(Player* player);
 
 	const sf::RectangleShape& GetShape() const;
 

@@ -14,6 +14,8 @@ void Game::InitVariables()
 
 	//Enemies
 	maxEnemies = 3;
+
+	player = new Player;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -71,7 +73,7 @@ void Game::PollEvents()
 void Game::Update()
 {
     PollEvents();
-	player.Update(window);
+	player->Update(window);
 	//Chase Player
 	for (int i = 0; i < enemies.size(); i++)
 	{
@@ -91,7 +93,7 @@ void Game::Update()
 void Game::Render()
 {
 	window->clear();
-	player.Render(*window);
+	player->Render(window);
 	for (auto i : enemies) 
 	{
 		i->Render(*window);
@@ -106,17 +108,17 @@ void Game::UpdateCollisions()
 	for (int e = 0; e < enemies.size(); e++) 
 	{
 		//Check Enemy Collision
-		if (player.GetShape().getGlobalBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
+		if (player->GetShape().getGlobalBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
 		{
 			std::cout << "Kill Player";
 		}
 
 		//Kill Player
-		for (size_t i = 0; i < player.GetBullets().size(); i++)
+		for (size_t i = 0; i < player->GetBullets().size(); i++)
 		{
-			if (player.GetSetBullet(i)->getBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
+			if (player->GetSetBullet(i)->getBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
 			{
-				player.DeleteBullet(i);
+				player->DeleteBullet(i);
 				enemies.erase(enemies.begin() + e);
 			}
 		}

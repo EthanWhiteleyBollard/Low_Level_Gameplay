@@ -17,7 +17,7 @@ private:
 	sf::VideoMode videoMode;
 	bool endGame;
 
-	Player player;
+	Player* player;
 
 	std::vector<EnemyBase*> enemies;
 	int maxEnemies;

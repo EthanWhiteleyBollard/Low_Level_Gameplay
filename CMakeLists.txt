@@ -11,7 +11,7 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(Low_Level_Gameplay "src/main.cpp"  "src/Game.cpp" "src/SpriteManager.h" "src/Enemies/EnemyBase.cpp" "src/Projectiles/ProjectileBase.h"  "src/Projectiles/PlayerProjectile.cpp" "src/Projectiles/Bullet.cpp")
+add_executable(Low_Level_Gameplay "src/main.cpp"  "src/Game.cpp" "src/Enemies/EnemyBase.cpp" "src/Projectiles/ProjectileBase.h"  "src/Projectiles/PlayerProjectile.cpp" "src/Projectiles/Bullet.cpp")
 
 file(GLOB_RECURSE MY_SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 target_sources(Low_Level_Gameplay PRIVATE ${MY_SOURCES})

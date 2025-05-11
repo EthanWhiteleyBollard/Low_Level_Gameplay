@@ -5,8 +5,8 @@
 #include "SFML/Window.hpp"
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
-#include "SpriteManager.h"
 #include "Projectiles/Bullet.h"
+#include "managedSprite.h"
 
 class Player
 {
@@ -17,7 +17,7 @@ public:
 
 	//Functions
 	void Update(const sf::RenderTarget* target);
-	void Render(sf::RenderTarget& target);
+	void Render(sf::RenderTarget* target);
 	void DeleteBullet(int i);
 
 	const bool canAttack();
@@ -33,8 +33,9 @@ private:
 	sf::RectangleShape shape;
 
 	float MovementSpeed;
-	sf::Image spriteSheet_Characters;
-
+	sf::Vector2f movementVector;
+	std::unique_ptr<LLGP::managedSprite> sprite;
+	
 	//Shooting
 	std::vector<Bullet*> Bullets;
 	float attackCooldown;

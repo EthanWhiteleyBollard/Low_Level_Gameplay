@@ -22,7 +22,6 @@ Player::~Player()
 void Player::initVariables()
 {
 	MovementSpeed = 6.f;
-	spriteSheet_Characters = sf::Image("Assets/tilemap-characters_packed.png");
 	attackCooldownMax = 8.f;
 	attackCooldown = attackCooldownMax;
 }
@@ -62,7 +61,7 @@ void Player::Update(const sf::RenderTarget* target)
 
 void Player::UpdateMovement()
 {
-	sf::Vector2f movementVector = { 0,0 };
+	movementVector = { 0,0 };
 
 	//Left Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A))
@@ -179,13 +178,11 @@ void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-void Player::Render(sf::RenderTarget& target)
+void Player::Render(sf::RenderTarget* target)
 {
-	SpriteManager sprite = SpriteManager::SpriteManager(spriteSheet_Characters, sf::Vector2i{ 0,0 }, sf::Vector2i{ 24, 24 });
-	target.draw(shape);
-	//sprite.render(target);
-	for (auto *i : Bullets) {
-		i->Render(target);
+	       target->draw(shape);
+	for (auto* i : Bullets) {
+		i->Render(*target);
 	}
 }
 

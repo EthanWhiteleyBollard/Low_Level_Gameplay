@@ -38,10 +38,10 @@ void EnemyBase::InitVariables(sf::RenderTarget& target)
 
 //--------------------------------------------------------------------------------------------------------------------------
 //Functions
-void EnemyBase::Update(Player player)
+void EnemyBase::Update(Player* player)
 {
 	//Chase Player
-	sf::Vector2f Direction = player.GetPostion() - Shape.getPosition();
+	sf::Vector2f Direction = player->GetPostion() - Shape.getPosition();
 	//position += Movespeed * Direction.normalized();
 	//Shape.setPosition(position);
 	Shape.move(Movespeed * Direction.normalized());
