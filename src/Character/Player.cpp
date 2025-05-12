@@ -5,10 +5,17 @@
 //Construct & Destruct
 Player::Player(float x, float y)
 {
-	shape.setPosition({x,y});
+	playerPos = { x,y };
 
 	initVariables();
-	initShape();
+
+	sf::Image image("Assets/Character.png");
+
+	bool result = texture.loadFromImage(image, true, sf::IntRect({ 0,0 }, { 40, 49 }));
+
+	if (result) {
+		sprite = new sf::Sprite(texture);
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -28,28 +35,16 @@ void Player::initVariables()
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
-
-void Player::initShape()
-{
-	shape.setFillColor(sf::Color::Red);
-	shape.setSize(sf::Vector2f(35.f, 35.f));
-	//shape.setOrigin({shape.getLocalBounds().size.x / 2.0f, shape.getLocalBounds().size.y / 2.0f});
-}
-
-
-//--------------------------------------------------------------------------------------------------------------------------
 //Functions
 void Player::Update(const sf::RenderTarget* target)
 {
 	UpdateMovement();
 
-	if (attackCooldown < attackCooldownMax) { attackCooldown += .4f; }
 
+	if (attackCooldown < attackCooldownMax) { attackCooldown += .4f; }
 	Shooting();
 
 	UpdateWindowBounds(target);
-
-	//std::cout << std::boolalpha << clock.isRunning() << std::endl;
 
 	for (auto *bullet : Bullets) 
 	{
@@ -88,8 +83,10 @@ void Player::UpdateMovement()
 		movementVector += { 0.f, MovementSpeed };
 	}
 
-	if(movementVector.x != 0.0f || movementVector.y != 0.0f)
-		shape.move(movementVector.normalized() * MovementSpeed);
+	if (movementVector.x != 0.0f || movementVector.y != 0.0f) 
+	{
+		playerPos += movementVector;
+	}
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -122,7 +119,9 @@ void Player::Shooting()
 	}
 
 	if (movementVector.x != 0.0f || movementVector.y != 0.0f)
-		SpawnBullet(movementVector.normalized(), shape.getPosition());
+	{
+		SpawnBullet(movementVector.normalized(), playerPos);
+	}
 
 }
 
@@ -138,29 +137,17 @@ void Player::SpawnBullet(sf::Vector2f direction, sf::Vector2f spawnPoint)
 void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 {
 	//Left Check
-	if (shape.getGlobalBounds().position.x < 0.f)
-		this->shape.setPosition({ 0, shape.getGlobalBounds().position.y});
+	if (playerPos.x < 0.f)
+		playerPos = { 0, playerPos.y};
 	//Right Check
-	if (shape.getGlobalBounds().position.x + shape.getGlobalBounds().size.x > target->getSize().x)
-		this->shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, shape.getGlobalBounds().position.y });
+	if (playerPos.x + sprite->getGlobalBounds().size.x > target->getSize().x)
+		playerPos = { target->getSize().x - sprite->getGlobalBounds().size.x, playerPos.y};
 	//Top Check
-	if (shape.getGlobalBounds().position.y < 0.f)
-		this->shape.setPosition({ shape.getGlobalBounds().position.x, 0.f });
+	if (playerPos.y < 0.f)
+		playerPos = { playerPos.x, 0.f };
 	//Bottom Check
-	if (shape.getGlobalBounds().position.y + shape.getGlobalBounds().size.y > target->getSize().y)
-		this->shape.setPosition({ shape.getGlobalBounds().position.x, target->getSize().y - shape.getGlobalBounds().size.y });
-	//Left Top Check
-	if (shape.getGlobalBounds().position.x < 0.f && shape.getGlobalBounds().position.y < 0.f)
-		this->shape.setPosition({ 0.f, 0.f });
-	//Left Down Check
-	if (shape.getGlobalBounds().position.x < 0.f && shape.getGlobalBounds().position.y + shape.getGlobalBounds().size.y > target->getSize().y)
-		this->shape.setPosition({ 0.f, target->getSize().y - shape.getGlobalBounds().size.y });
-	//Right Top Check
-	if (shape.getGlobalBounds().position.x + shape.getGlobalBounds().size.x > target->getSize().x && shape.getGlobalBounds().position.y < 0.f)
-		this->shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, 0.f });
-	//Right Down Check
-	if (shape.getGlobalBounds().position.x + shape.getGlobalBounds().size.x > target->getSize().x && shape.getGlobalBounds().position.y + shape.getGlobalBounds().size.y > target->getSize().y)
-		this->shape.setPosition({ target->getSize().x - shape.getGlobalBounds().size.x, target->getSize().y - shape.getGlobalBounds().size.y });
+	if (playerPos.y + sprite->getGlobalBounds().size.y > target->getSize().y)
+		playerPos = { playerPos.x , target->getSize().y - sprite->getGlobalBounds().size.y };
 
 	//Bullets
 	unsigned counter = 0;
@@ -179,11 +166,13 @@ void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
-void Player::Render(sf::RenderTarget* target)
+void Player::Render(sf::RenderWindow& target)
 {
-	target->draw(shape);
-	for (auto* i : Bullets) {
-		i->Render(*target);
+	sprite->setPosition(playerPos);
+	target.draw(*sprite);
+	for (auto* i : Bullets) 
+	{
+		i->Render(target);
 	}
 }
 
@@ -209,13 +198,6 @@ const bool Player::canAttack()
 //--------------------------------------------------------------------------------------------------------------------------
 //Getter Functions
 
-const sf::RectangleShape& Player::GetShape() const
-{
-	return shape;
-}
-
-//--------------------------------------------------------------------------------------------------------------------------
-
 std::vector<Bullet*>& Player::GetBullets()
 {
 	return Bullets;
@@ -230,17 +212,22 @@ Bullet* Player::GetSetBullet(int i)
 
 //--------------------------------------------------------------------------------------------------------------------------
 
+sf::Sprite* Player::GetSprite()
+{
+	return sprite;
+}
+
 sf::Vector2f Player::GetPostion()
 {
-	return shape.getPosition();
+	return playerPos;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
 
 sf::Vector2f Player::SetPosition(sf::Vector2f pos)
 {
-	shape.setPosition(pos);
-	return shape.getPosition();
+	playerPos = pos;
+	return playerPos;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

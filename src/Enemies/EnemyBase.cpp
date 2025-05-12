@@ -4,6 +4,14 @@
 //Construct & Destruct
 EnemyBase::EnemyBase(sf::RenderTarget& target, Player player)
 {
+	sf::Image image("Assets/Enemy.png");
+
+	bool result = texture.loadFromImage(image, true, sf::IntRect({ 0,0 }, { 40, 53 }));
+
+	if (result) {
+		sprite = new sf::Sprite(texture);
+	}
+
 	InitVariables(target, player);
 }
 
@@ -17,12 +25,9 @@ EnemyBase::~EnemyBase()
 //Initialization
 void EnemyBase::InitVariables(sf::RenderTarget& target, Player player)
 {
-	Shape.setFillColor(sf::Color::Yellow);
-	Shape.setSize(sf::Vector2f(45.f, 45.f));
-
 	//Randomize Spawn
-	float shapePosX = static_cast<float>(rand() % target.getSize().x - Shape.getGlobalBounds().size.x);
-	float shapePosY = static_cast<float>(rand() % target.getSize().y - Shape.getGlobalBounds().size.y);
+	float shapePosX = static_cast<float>(rand() % target.getSize().x - sprite->getGlobalBounds().size.x);
+	float shapePosY = static_cast<float>(rand() % target.getSize().y - sprite->getGlobalBounds().size.y);
 	
 	//Out of bounds check
 	if (shapePosX < 0.f)
@@ -32,11 +37,11 @@ void EnemyBase::InitVariables(sf::RenderTarget& target, Player player)
 		shapePosY = 0.f;
 
 	//Player range check
-	while (shapePosX > player.GetPostion().x - 200 && shapePosX < player.GetPostion().x + 200) { shapePosX = static_cast<float>(rand() % target.getSize().x - Shape.getGlobalBounds().size.x); }
-	while (shapePosY > player.GetPostion().y - 200 && shapePosY < player.GetPostion().y + 200) { shapePosY = static_cast<float>(rand() % target.getSize().y - Shape.getGlobalBounds().size.y); }
+	while (shapePosX > player.GetPostion().x - 200 && shapePosX < player.GetPostion().x + 200) { shapePosX = static_cast<float>(rand() % target.getSize().x - sprite->getGlobalBounds().size.x); }
+	while (shapePosY > player.GetPostion().y - 200 && shapePosY < player.GetPostion().y + 200) { shapePosY = static_cast<float>(rand() % target.getSize().y - sprite->getGlobalBounds().size.y); }
 
 	position = sf::Vector2f(shapePosX, shapePosY);
-	Shape.setPosition(position);
+	sprite->setPosition(position);
 
 	Movespeed = 2.f;
 	score = 150;
@@ -47,25 +52,25 @@ void EnemyBase::InitVariables(sf::RenderTarget& target, Player player)
 void EnemyBase::Update(Player* player)
 {
 	//Chase Player
-	sf::Vector2f Direction = player->GetPostion() - Shape.getPosition();
+	sf::Vector2f Direction = player->GetPostion() - sprite->getPosition();
 	//position += Movespeed * Direction.normalized();
 	//Shape.setPosition(position);
-	Shape.move(Movespeed * Direction.normalized());
+	sprite->move(Movespeed * Direction.normalized());
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
 
 void EnemyBase::Render(sf::RenderTarget& target)
 {
-	target.draw(Shape);
+	target.draw(*sprite);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
 //Getter Functions
 
-const sf::RectangleShape& EnemyBase::GetShape() const
+sf::Sprite* EnemyBase::GetSprite()
 {
-	return Shape;
+	return sprite;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------

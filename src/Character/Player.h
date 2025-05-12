@@ -16,15 +16,15 @@ public:
 
 	//Functions
 	void Update(const sf::RenderTarget* target);
-	void Render(sf::RenderTarget* target);
+	void Render(sf::RenderWindow& target);
 	void DeleteBullet(int i);
 
 	const bool canAttack();
 
-	const sf::RectangleShape& GetShape() const;
 	std::vector<Bullet*>& GetBullets();
 	Bullet* GetSetBullet(int i);
 
+	sf::Sprite* GetSprite();
 	sf::Vector2f GetPostion();
 	sf::Vector2f SetPosition(sf::Vector2f pos);
 	int GetLives();
@@ -32,11 +32,13 @@ public:
 
 private:
 	//Variables
-	sf::RectangleShape shape;
-
 	float MovementSpeed;
 
 	int lives;
+
+	sf::Vector2f playerPos;
+	sf::Sprite* sprite = nullptr;
+	sf::Texture texture;
 	
 	//Shooting
 	std::vector<Bullet*> Bullets;
@@ -45,7 +47,6 @@ private:
 
 	//Initialization
 	void initVariables();
-	void initShape();
 
 	//Private Functions
 	void UpdateMovement();

@@ -17,16 +17,18 @@ public:
 	void Render(sf::RenderTarget& target);
 	void Update(Player* player);
 
-	const sf::RectangleShape& GetShape() const;
 	const int GetScore() const;
+	sf::Sprite* GetSprite();
 
 private:
 
 	//Variables
-	sf::RectangleShape Shape;
 	float Movespeed;
 	sf::Vector2f position;
 	int score;
+
+	sf::Sprite* sprite = nullptr;
+	sf::Texture texture;
 
 	//Initialization
 	void InitVariables(sf::RenderTarget& target, Player player);

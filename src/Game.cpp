@@ -49,7 +49,7 @@ Game::Game()
 	InitVariables();
 	InitWindow();
 	SpawnEnemies();
-	player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetShape().getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetShape().getGlobalBounds().size.y) / 2 });
+	player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetSprite()->getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetSprite()->getGlobalBounds().size.y) / 2 });
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ void Game::Update()
 	if (enemies.size() <= 0) 
 	{
 		maxEnemies++;
-		player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetShape().getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetShape().getGlobalBounds().size.y) / 2 });
+		player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetSprite()->getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetSprite()->getGlobalBounds().size.y) / 2 });
 		SpawnEnemies();
 	}
 }
@@ -112,7 +112,7 @@ void Game::Update()
 void Game::Render()
 {
 	window->clear();
-	player->Render(window);
+	player->Render(*window);
 	for (auto i : enemies) 
 	{
 		i->Render(*window);
@@ -127,9 +127,9 @@ void Game::UpdateCollisions()
 	for (int e = 0; e < enemies.size(); e++) 
 	{
 		//Check Player
-		if (player->GetShape().getGlobalBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
+		if (player->GetSprite()->getGlobalBounds().findIntersection(enemies[e]->GetSprite()->getGlobalBounds()))
 		{
-			if (player->GetLives() <= 0)
+		if (player->GetLives() <= 0)
 			{
 				PlayerDead = true;
 				std::cout << "Final Score is: " << currentScore << std::endl;
@@ -137,7 +137,7 @@ void Game::UpdateCollisions()
 			else
 			{
 				player->SetLives(player->GetLives() - 1);
-				player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetShape().getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetShape().getGlobalBounds().size.y) / 2});
+				player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetSprite()->getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetSprite()->getGlobalBounds().size.y) / 2 });
 				enemies.erase(enemies.begin(), enemies.end());
 				SpawnEnemies();
 			}
@@ -146,7 +146,7 @@ void Game::UpdateCollisions()
 		//Check bullet
 		for (size_t i = 0; i < player->GetBullets().size(); i++)
 		{
-			if (player->GetSetBullet(i)->getBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
+			if (player->GetSetBullet(i)->getBounds().findIntersection(enemies[e]->GetSprite()->getGlobalBounds()))
 			{
 				player->DeleteBullet(i);
 				currentScore += enemies[e]->GetScore();
@@ -157,7 +157,7 @@ void Game::UpdateCollisions()
 					std::cout << "Lives: " << player->GetLives() << std::endl;
 					livesScore = 0;
 				}
- 				std::cout << "The score is: " << currentScore << std::endl;
+					std::cout << "The score is: " << currentScore << std::endl;
 				enemies.erase(enemies.begin() + e);
 			}
 		}
