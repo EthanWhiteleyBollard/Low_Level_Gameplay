@@ -132,7 +132,7 @@ void Game::UpdateCollisions()
 			if (player->GetLives() <= 0)
 			{
 				PlayerDead = true;
-				std::cout << "Kill Player";
+				std::cout << "Final Score is: " << currentScore << std::endl;
 			}
 			else
 			{
@@ -154,6 +154,7 @@ void Game::UpdateCollisions()
 				if (livesScore >= 10000) 
 				{
 					player->SetLives(player->GetLives() + 1);
+					std::cout << "Lives: " << player->GetLives() << std::endl;
 					livesScore = 0;
 				}
  				std::cout << "The score is: " << currentScore << std::endl;
