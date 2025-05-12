@@ -6,7 +6,6 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
 #include "Projectiles/Bullet.h"
-#include "managedSprite.h"
 
 class Player
 {
@@ -27,14 +26,17 @@ public:
 	Bullet* GetSetBullet(int i);
 
 	sf::Vector2f GetPostion();
+	sf::Vector2f SetPosition(sf::Vector2f pos);
+	int GetLives();
+	int SetLives(int i);
 
 private:
 	//Variables
 	sf::RectangleShape shape;
 
 	float MovementSpeed;
-	sf::Vector2f movementVector;
-	std::unique_ptr<LLGP::managedSprite> sprite;
+
+	int lives;
 	
 	//Shooting
 	std::vector<Bullet*> Bullets;

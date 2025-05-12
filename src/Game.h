@@ -26,6 +26,11 @@ private:
 	sf::Image spriteSheet_Tilemap;
 	sf::Image spriteSheet_Backgrounds;
 
+	bool PlayerDead;
+	int currentScore;
+	int livesScore;
+	sf::Text* scoreText;
+
 	//Private Functions
 	void InitVariables();
 	void InitWindow();

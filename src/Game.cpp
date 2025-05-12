@@ -16,6 +16,21 @@ void Game::InitVariables()
 	maxEnemies = 3;
 
 	player = new Player;
+	PlayerDead = false;
+	currentScore = 0;
+	livesScore = 0;
+
+	//Score Text
+	//sf::Font font;
+	//if (!font.openFromFile("./Assets/Font/Roboto-VariableFont_wdth,wght.ttf"))
+	//{
+	//	exit(1);
+	//}
+
+	//scoreText->setFont(font);
+	//scoreText->setString("0000");
+	//scoreText->setCharacterSize(24);
+	//scoreText->setFillColor(sf::Color::White);
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -34,6 +49,7 @@ Game::Game()
 	InitVariables();
 	InitWindow();
 	SpawnEnemies();
+	player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetShape().getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetShape().getGlobalBounds().size.y) / 2 });
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -72,6 +88,8 @@ void Game::PollEvents()
 
 void Game::Update()
 {
+	if (PlayerDead) { return; }
+
     PollEvents();
 	player->Update(window);
 	//Chase Player
@@ -84,6 +102,7 @@ void Game::Update()
 	if (enemies.size() <= 0) 
 	{
 		maxEnemies++;
+		player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetShape().getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetShape().getGlobalBounds().size.y) / 2 });
 		SpawnEnemies();
 	}
 }
@@ -107,18 +126,37 @@ void Game::UpdateCollisions()
 {
 	for (int e = 0; e < enemies.size(); e++) 
 	{
-		//Check Enemy Collision
+		//Check Player
 		if (player->GetShape().getGlobalBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
 		{
-			std::cout << "Kill Player";
+			if (player->GetLives() <= 0)
+			{
+				PlayerDead = true;
+				std::cout << "Kill Player";
+			}
+			else
+			{
+				player->SetLives(player->GetLives() - 1);
+				player->SetPosition(sf::Vector2f{ (window->getSize().x - player->GetShape().getGlobalBounds().size.x) / 2, (window->getSize().y - player->GetShape().getGlobalBounds().size.y) / 2});
+				enemies.erase(enemies.begin(), enemies.end());
+				SpawnEnemies();
+			}
 		}
 
-		//Kill Player
+		//Check bullet
 		for (size_t i = 0; i < player->GetBullets().size(); i++)
 		{
 			if (player->GetSetBullet(i)->getBounds().findIntersection(enemies[e]->GetShape().getGlobalBounds()))
 			{
 				player->DeleteBullet(i);
+				currentScore += enemies[e]->GetScore();
+				livesScore += enemies[e]->GetScore();
+				if (livesScore >= 10000) 
+				{
+					player->SetLives(player->GetLives() + 1);
+					livesScore = 0;
+				}
+ 				std::cout << "The score is: " << currentScore << std::endl;
 				enemies.erase(enemies.begin() + e);
 			}
 		}
@@ -131,7 +169,7 @@ void Game::SpawnEnemies()
 {
 	while (enemies.size() < maxEnemies)
 	{
-		enemies.push_back(new EnemyBase(*window));
+		enemies.push_back(new EnemyBase(*window, *player));
 	}
 }
 

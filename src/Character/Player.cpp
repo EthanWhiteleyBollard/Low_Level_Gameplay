@@ -24,6 +24,7 @@ void Player::initVariables()
 	MovementSpeed = 6.f;
 	attackCooldownMax = 8.f;
 	attackCooldown = attackCooldownMax;
+	lives = 2;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +62,7 @@ void Player::Update(const sf::RenderTarget* target)
 
 void Player::UpdateMovement()
 {
-	movementVector = { 0,0 };
+	sf::Vector2f movementVector = { 0,0 };
 
 	//Left Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A))
@@ -180,7 +181,7 @@ void Player::UpdateWindowBounds(const sf::RenderTarget* target)
 
 void Player::Render(sf::RenderTarget* target)
 {
-	       target->draw(shape);
+	target->draw(shape);
 	for (auto* i : Bullets) {
 		i->Render(*target);
 	}
@@ -232,6 +233,29 @@ Bullet* Player::GetSetBullet(int i)
 sf::Vector2f Player::GetPostion()
 {
 	return shape.getPosition();
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+sf::Vector2f Player::SetPosition(sf::Vector2f pos)
+{
+	shape.setPosition(pos);
+	return shape.getPosition();
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+int Player::GetLives()
+{
+	return lives;
+}
+
+//--------------------------------------------------------------------------------------------------------------------------
+
+int Player::SetLives(int i)
+{
+	lives = i;
+	return lives;
 }
 
 //--------------------------------------------------------------------------------------------------------------------------
